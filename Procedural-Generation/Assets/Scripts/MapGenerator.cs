@@ -7,12 +7,11 @@ public class MapGenerator : MonoBehaviour {
     public enum DrawMode { NoiseMap, ColourMap, Mesh}
     public DrawMode drawMode;
 
-    const int mapChunkSize = 241;
+    public const int mapChunkSize = 241;
     [Range(0, 6)]
     public int levelOfDetail;
     public float noiseScale;
-    //public int mapChunkWidth;
-    //public int mapChunkHeight;
+   
     public int octaves;
     [Range (0,1)]
     public float persistance;
@@ -28,11 +27,29 @@ public class MapGenerator : MonoBehaviour {
 
     public TerrainType[] regions;
 
-    public void GenerateMap()
+    public void DrawMapInEditor()
+    {
+        MapData mapData = GenerateMapData();
+
+        MapDisplay display = FindObjectOfType<MapDisplay>();
+        if (drawMode == DrawMode.NoiseMap)
+        {
+            display.DrawTextrure(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
+        }
+        else if (drawMode == DrawMode.ColourMap)
+        {
+            display.DrawTextrure(TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
+        }
+        else if (drawMode == DrawMode.Mesh)
+        {
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
+        }
+    }
+
+    MapData GenerateMapData()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale , octaves, persistance, lacunarity, offset);
-
-
+        
         //create arry of colours for each region to be used within the noise
         Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
 
@@ -51,21 +68,7 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
-
-        MapDisplay display = FindObjectOfType<MapDisplay>();
-        if (drawMode == DrawMode.NoiseMap)
-        {
-            display.DrawTextrure(TextureGenerator.TextureFromHeightMap(noiseMap));
-        }
-        else if (drawMode == DrawMode.ColourMap)
-        {
-            display.DrawTextrure(TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize));
-        }
-        else if (drawMode == DrawMode.Mesh)
-        {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail),TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize));
-        }
-
+        return new MapData(noiseMap, colourMap);
     }
 
     //clamp values to avoid crashes
@@ -85,4 +88,16 @@ public struct TerrainType
     public string name;
     public float height;
     public Color colour;
+}
+
+public struct MapData
+{
+    public float[,] heightMap;
+    public Color[] colourMap;
+
+    public MapData(float[,] heightMap, Color[] colourMap)
+    {
+        this.heightMap = heightMap;
+        this.colourMap = colourMap;
+    }
 }
