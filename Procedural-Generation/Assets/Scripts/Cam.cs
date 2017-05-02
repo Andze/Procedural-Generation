@@ -17,9 +17,12 @@ public class Cam : MonoBehaviour {
     public float mouseSensitivity = 5.0f;        // Mouse rotation sensitivity.
     private float rotationY = 0.0f;
 
+	public GameObject Water;
+
 
     void Update()
     {
+		Water.transform.position = new Vector3 (gameObject.transform.position.x, 1, gameObject.transform.position.z);
 
         // Angryboy: Hold right-mouse button to rotate
         if (Input.GetMouseButtonDown(1))
