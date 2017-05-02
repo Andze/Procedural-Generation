@@ -166,9 +166,11 @@ public class EndlessTerrain : MonoBehaviour
                     terrainChunksVisibleLastUpdate.Add(this);
                 }
 				GameObject myTree = GameObject.Find("Tree");
-				GameObject SpawnedObjects = new GameObject();
-				SpawnedObjects.name = "SpawnedObjects";
+
+				GameObject SpawnedObjects = new GameObject(); SpawnedObjects.name = "SpawnedObjects";
+
 				SpawnedObjects.transform.SetParent (meshObject.transform);
+				SpawnedObjects.transform.position = meshObject.transform.position;
 
 				for (int x = 0; x < 241; x += 5) 
 				{
@@ -197,8 +199,10 @@ public class EndlessTerrain : MonoBehaviour
 //						index++;
 					}
 				}
-				SpawnedObjects.transform.Rotate (new Vector3 (1, 0, 0), -180.0f);
-				SpawnedObjects.transform.localPosition = new Vector3 (SpawnedObjects.transform.localPosition.x -120.5f,0, SpawnedObjects.transform.localPosition.z - 120.5f);
+				SpawnedObjects.transform.Rotate (new Vector3 (180.0f, 0, 0));
+			
+				SpawnedObjects.transform.localPosition = new Vector3 (SpawnedObjects.transform.localPosition.x - 120.5f,0, SpawnedObjects.transform.localPosition.z + 120.5f);
+
                 SetVisible(visible);
             }
         }
