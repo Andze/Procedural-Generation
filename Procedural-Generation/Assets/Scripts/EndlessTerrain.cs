@@ -165,18 +165,23 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     terrainChunksVisibleLastUpdate.Add(this);
                 }
-					
-				for (int y = 0; y < 200; y += 20) 
-				{
-					for (int x = 0; x < 200; x += 20) 
-					{
-						if (mapData.heightMap [x, y] >= 0.85f && mapData.heightMap [x, y] <= 0.95f)
-						{
-							GameObject poop = new GameObject();
-							Instantiate(poop, new Vector3 (meshObject.transform.localPosition.x + x,mapData.heightMap [x, y],meshObject.transform.localPosition.z + y), Quaternion.identity);
+				GameObject myTree = GameObject.Find("Tree");
+				GameObject SpawnedObjects = new GameObject();
+				SpawnedObjects.name = "SpawnedObjects";
+				SpawnedObjects.transform.SetParent (meshObject.transform);
 
-							//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
+				for (int x = 0; x < 241; x += 5) 
+				{
+					for (int y = 0; y < 241; y += 5) 
+					{
+						if (mapData.heightMap [x, y] >= 0.0f && mapData.heightMap [x, y] <= 0.4f)
+						{
+							GameObject Tree = Instantiate(myTree, new Vector3 (meshObject.transform.localPosition.x + x, mapData.heightMap [x, y] , meshObject.transform.localPosition.z + y), Quaternion.identity);
+							Tree.transform.SetParent(SpawnedObjects.transform);
+						
 						}
+						//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
+
 
 //						if(meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y >= 3.0f &&	
 //							meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y <= 4.0f)
@@ -192,7 +197,8 @@ public class EndlessTerrain : MonoBehaviour
 //						index++;
 					}
 				}
-
+				SpawnedObjects.transform.Rotate (new Vector3 (1, 0, 0), -180.0f);
+				SpawnedObjects.transform.localPosition = new Vector3 (SpawnedObjects.transform.localPosition.x -120.5f,0, SpawnedObjects.transform.localPosition.z - 120.5f);
                 SetVisible(visible);
             }
         }
@@ -218,8 +224,6 @@ public class EndlessTerrain : MonoBehaviour
         int lod;
         System.Action updateCallback;
 
-		GameObject _tree;
-
         public LODMesh(int lod, System.Action updateCallback)
         {
             this.lod = lod;
@@ -229,7 +233,7 @@ public class EndlessTerrain : MonoBehaviour
         public void OnMeshDataReceived(MeshData meshData)
         {
             mesh = meshData.CreateMesh();
-            hasMesh = true;
+			hasMesh = true;
 
             updateCallback();
         }
