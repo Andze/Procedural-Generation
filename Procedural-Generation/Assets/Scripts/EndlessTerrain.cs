@@ -165,6 +165,33 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     terrainChunksVisibleLastUpdate.Add(this);
                 }
+					
+				for (int y = 0; y < 200; y += 20) 
+				{
+					for (int x = 0; x < 200; x += 20) 
+					{
+						if (mapData.heightMap [x, y] >= 0.85f && mapData.heightMap [x, y] <= 0.95f)
+						{
+							GameObject poop = new GameObject();
+							Instantiate(poop, new Vector3 (meshObject.transform.localPosition.x + x,mapData.heightMap [x, y],meshObject.transform.localPosition.z + y), Quaternion.identity);
+
+							//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
+						}
+
+//						if(meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y >= 3.0f &&	
+//							meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y <= 4.0f)
+//						{
+//							//parent to mesh
+//							// place object or place maker to designate area.
+//							// after instantiate do roation = fromtorotation(vec down, vertex mposition)
+//							GameObject poop = new GameObject();
+//							Instantiate(poop, new Vector3(position.x + meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].x,meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y,position.y + meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y), Quaternion.identity);
+//
+//								//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
+//						}
+//						index++;
+					}
+				}
 
                 SetVisible(visible);
             }
@@ -182,7 +209,7 @@ public class EndlessTerrain : MonoBehaviour
 
     }
 
-    class LODMesh
+    public class LODMesh
     {
         public Mesh mesh;
 		public Vector3[] Verts;
@@ -199,11 +226,10 @@ public class EndlessTerrain : MonoBehaviour
             this.updateCallback = updateCallback;
         }
 
-        void OnMeshDataReceived(MeshData meshData)
+        public void OnMeshDataReceived(MeshData meshData)
         {
             mesh = meshData.CreateMesh();
             hasMesh = true;
-
 
             updateCallback();
         }
