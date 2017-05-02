@@ -62,7 +62,7 @@ public class MeshData
         trianglesIndex += 3;
     }
 
-    public Mesh CreateMesh()
+	public Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
         mesh.vertices = verticies;
@@ -71,4 +71,5 @@ public class MeshData
         mesh.RecalculateNormals ();
         return mesh;
     }
+		
 }

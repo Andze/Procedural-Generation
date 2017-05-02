@@ -29,9 +29,11 @@ public class MapGenerator : MonoBehaviour
     public AnimationCurve meshHeightCurve;
 
     public bool autoUpdate;
-	public static List<int> treeIndex = new List<int>(0);
+
+	public List<int> treeIndex = new List<int>(0);
+
     public TerrainType[] regions;
-	public GameObject Tree;
+	//public GameObject Tree;
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
@@ -50,7 +52,7 @@ public class MapGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.Mesh)
         {
-			MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD);
+		/*	MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD);
 			display.DrawMesh( meshdata,TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
 			GameObject Trees = new GameObject();
 			Trees.name = "Spawned-Trees";
@@ -60,7 +62,7 @@ public class MapGenerator : MonoBehaviour
 				tree.transform.SetParent (Trees.transform);
 				//Debug.Log (meshdata.verticies [treeIndex [i]]);
 			}
-			treeIndex = new List<int>(0);
+			treeIndex = new List<int>(0);*/
 		}
     }
 
@@ -95,6 +97,8 @@ public class MapGenerator : MonoBehaviour
     void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
         MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, lod);
+
+
         lock (meshDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
@@ -151,7 +155,8 @@ public class MapGenerator : MonoBehaviour
         }
 
 
-        return new MapData(noiseMap, colourMap);
+		return new MapData(noiseMap, colourMap);
+
 	}
 
     void OnValidate()

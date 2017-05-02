@@ -104,7 +104,6 @@ public class EndlessTerrain : MonoBehaviour
             meshRenderer = meshObject.AddComponent<MeshRenderer>();
             meshFilter = meshObject.AddComponent<MeshFilter>();
             meshRenderer.material = material;
-
             meshObject.transform.position = positionV3;
             meshObject.transform.parent = parent;
             SetVisible(false);
@@ -112,7 +111,7 @@ public class EndlessTerrain : MonoBehaviour
             lodMeshes = new LODMesh[detailLevels.Length];
             for (int i = 0; i < detailLevels.Length; i++)
             {
-                lodMeshes[i] = new LODMesh(detailLevels[i].lod, UpdateTerrainChunk);
+				lodMeshes[i] = new LODMesh(detailLevels[i].lod, UpdateTerrainChunk);
             }
 
             mapGenerator.RequestMapData(position, OnMapDataReceived);
@@ -189,10 +188,13 @@ public class EndlessTerrain : MonoBehaviour
     class LODMesh
     {
         public Mesh mesh;
+		public Vector3[] Verts;
         public bool hasRequestedMesh;
         public bool hasMesh;
         int lod;
         System.Action updateCallback;
+
+		GameObject _tree;
 
         public LODMesh(int lod, System.Action updateCallback)
         {
@@ -204,6 +206,7 @@ public class EndlessTerrain : MonoBehaviour
         {
             mesh = meshData.CreateMesh();
             hasMesh = true;
+
 
             updateCallback();
         }
