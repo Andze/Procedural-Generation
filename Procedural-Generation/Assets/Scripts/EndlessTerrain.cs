@@ -12,7 +12,7 @@ public class EndlessTerrain : MonoBehaviour
 
     public Transform viewer;
     public Material mapMaterial;
-
+	public GameObject Tree;
     public static Vector2 viewerPosition;
     Vector2 viewerPositionOld;
     static MapGenerator mapGenerator;

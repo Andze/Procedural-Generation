@@ -29,9 +29,9 @@ public class MapGenerator : MonoBehaviour
     public AnimationCurve meshHeightCurve;
 
     public bool autoUpdate;
-
+	public static List<int> treeIndex = new List<int>(0);
     public TerrainType[] regions;
-
+	public GameObject Tree;
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
@@ -50,8 +50,18 @@ public class MapGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.Mesh)
         {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD), TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
-        }
+			MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD);
+			display.DrawMesh( meshdata,TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
+			GameObject Trees = new GameObject();
+			Trees.name = "Spawned-Trees";
+			for (int i = 0; i < treeIndex.Count; i++) 
+			{
+				GameObject tree = Instantiate(Tree,meshdata.verticies[treeIndex[i]],Quaternion.identity);
+				tree.transform.SetParent (Trees.transform);
+				//Debug.Log (meshdata.verticies [treeIndex [i]]);
+			}
+			treeIndex = new List<int>(0);
+		}
     }
 
     public void RequestMapData(Vector2 centre, Action<MapData> callback)
@@ -66,6 +76,7 @@ public class MapGenerator : MonoBehaviour
     void MapDataThread(Vector2 centre, Action<MapData> callback)
     {
         MapData mapData = GenerateMapData(centre);
+
         lock (mapDataThreadInfoQueue)
         {
             mapDataThreadInfoQueue.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
@@ -115,7 +126,7 @@ public class MapGenerator : MonoBehaviour
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, centre + offset, normalizedMode);
 
-        Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
+		Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
         for (int y = 0; y < mapChunkSize; y++)
         {
             for (int x = 0; x < mapChunkSize; x++)
@@ -126,6 +137,10 @@ public class MapGenerator : MonoBehaviour
                     if (currentHeight >= regions[i].height)
                     {
                         colourMap[y * mapChunkSize + x] = regions[i].colour;
+
+						if (i == 6) {
+							treeIndex.Add (y * mapChunkSize + x);
+						}
                         
                     } else
                     {
@@ -137,7 +152,7 @@ public class MapGenerator : MonoBehaviour
 
 
         return new MapData(noiseMap, colourMap);
-    }
+	}
 
     void OnValidate()
     {
