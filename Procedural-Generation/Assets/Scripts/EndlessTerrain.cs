@@ -182,21 +182,6 @@ public class EndlessTerrain : MonoBehaviour
 							Tree.transform.SetParent(SpawnedObjects.transform);
 						
 						}
-						//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
-
-
-//						if(meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y >= 3.0f &&	
-//							meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y <= 4.0f)
-//						{
-//							//parent to mesh
-//							// place object or place maker to designate area.
-//							// after instantiate do roation = fromtorotation(vec down, vertex mposition)
-//							GameObject poop = new GameObject();
-//							Instantiate(poop, new Vector3(position.x + meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].x,meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y,position.y + meshFilter.mesh.vertices[meshFilter.sharedMesh.triangles[index*6]].y), Quaternion.identity);
-//
-//								//meshFilter.sharedMesh.vertices[meshFilter.sharedMesh.triangles[index*6]], Quaternion.identity);
-//						}
-//						index++;
 					}
 				}
 				SpawnedObjects.transform.Rotate (new Vector3 (180.0f, 0, 0));
