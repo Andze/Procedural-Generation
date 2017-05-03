@@ -10,25 +10,30 @@ ModelImporter:
     100004: Wall
     100006: Keep
     100008: FarmHouse
+    100010: House_1
     400000: //RootNode
     400002: Sphere
     400004: Wall
     400006: Keep
     400008: FarmHouse
+    400010: House_1
     2300000: //RootNode
     2300002: Sphere
     2300004: Wall
     2300006: Keep
     2300008: FarmHouse
+    2300010: House_1
     3300000: //RootNode
     3300002: Sphere
     3300004: Wall
     3300006: Keep
     3300008: FarmHouse
+    3300010: House_1
     4300000: Wall
     4300002: Sphere
     4300004: Keep
     4300006: FarmHouse
+    4300008: House_1
   materials:
     importMaterials: 1
     materialName: 0
