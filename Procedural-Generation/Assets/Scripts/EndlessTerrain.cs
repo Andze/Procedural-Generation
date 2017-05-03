@@ -186,7 +186,6 @@ public class EndlessTerrain : MonoBehaviour
 					}
 				}
 				SpawnedObjects.transform.Rotate (new Vector3 (180.0f, 0, 0));
-			
 				SpawnedObjects.transform.localPosition = new Vector3 (SpawnedObjects.transform.localPosition.x - 120.5f,0, SpawnedObjects.transform.localPosition.z + 120.5f);
 
                 SetVisible(visible);

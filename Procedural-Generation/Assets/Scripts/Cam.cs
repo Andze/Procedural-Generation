@@ -19,10 +19,18 @@ public class Cam : MonoBehaviour {
 
 	public GameObject Water;
 
+    void start()
+    {
+     
+    }
 
     void Update()
     {
-		Water.transform.position = new Vector3 (gameObject.transform.position.x, 1, gameObject.transform.position.z);
+        if (Water.active != true)
+            Water.SetActive(true);
+
+        Water.transform.position = new Vector3 (gameObject.transform.position.x, 1, gameObject.transform.position.z);
+      
 
         // Angryboy: Hold right-mouse button to rotate
         if (Input.GetMouseButtonDown(1))
