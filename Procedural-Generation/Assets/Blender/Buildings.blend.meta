@@ -13,6 +13,7 @@ ModelImporter:
     100010: House_1
     100012: House_2
     100014: Keep_Snow
+    100016: Cube
     400000: //RootNode
     400002: Sphere
     400004: Wall
@@ -21,6 +22,7 @@ ModelImporter:
     400010: House_1
     400012: House_2
     400014: Keep_Snow
+    400016: Cube
     2300000: //RootNode
     2300002: Sphere
     2300004: Wall
@@ -29,6 +31,7 @@ ModelImporter:
     2300010: House_1
     2300012: House_2
     2300014: Keep_Snow
+    2300016: Cube
     3300000: //RootNode
     3300002: Sphere
     3300004: Wall
@@ -37,6 +40,7 @@ ModelImporter:
     3300010: House_1
     3300012: House_2
     3300014: Keep_Snow
+    3300016: Cube
     4300000: Wall
     4300002: Sphere
     4300004: Keep
@@ -44,6 +48,7 @@ ModelImporter:
     4300008: House_1
     4300010: House_2
     4300012: Keep_Snow
+    4300014: Cube
   materials:
     importMaterials: 1
     materialName: 0
