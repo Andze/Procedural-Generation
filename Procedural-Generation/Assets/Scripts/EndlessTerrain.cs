@@ -177,6 +177,9 @@ public class EndlessTerrain : MonoBehaviour
                                 GameObject Wall = GameObject.Find("Wall");
                                 GameObject Keep = GameObject.Find("Keep");
                                 GameObject FarmHouse = GameObject.Find("FarmHouse1");
+                                GameObject House_1 = GameObject.Find("House_1");
+                                GameObject House_2 = GameObject.Find("House_2");
+                                GameObject Keep_Snow = GameObject.Find("Keep_Snow");
 
                                 GameObject ObjectToSpawn = new GameObject();
                                 ObjectToSpawn.transform.SetParent(meshObject.transform);
@@ -260,19 +263,29 @@ public class EndlessTerrain : MonoBehaviour
                                         }
                                         if (mapData.heightMap[x, y] >= 0.85f && mapData.heightMap[x, y] <= 0.95f)
                                         {
-                                            //Rock 2       
-                                            GameObject Tree = Instantiate(Keep, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            //Rock 2     
+                                            float randomSeed = Random.Range(0, 101);
+                                            if (randomSeed > 0 && randomSeed < 20) ObjectToSpawn = Keep;
+                                            if (randomSeed > 20 && randomSeed < 60) ObjectToSpawn = House_1;
+                                            if (randomSeed > 60 && randomSeed < 100) ObjectToSpawn = House_2;
+
+                                            GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
-                                            float RandomScale = Keep.transform.localScale.x + Random.Range(-0.05f, 0.1f);
+                                            float RandomScale = ObjectToSpawn.transform.localScale.x + Random.Range(-0.05f, 0.1f);
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
                                         }
                                         if (mapData.heightMap[x, y] > 0.95f)
                                         {
+                                            //Rock 2     
+                                            float randomSeed = Random.Range(0, 101);
+                                            if (randomSeed > 0 && randomSeed < 65) ObjectToSpawn = Keep_Snow;
+                                            if (randomSeed > 65 && randomSeed < 100) ObjectToSpawn = Pine_TreeSnow;
+                                            
                                             //Snow      
-                                            GameObject Tree = Instantiate(Pine_TreeSnow, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
-                                            float RandomScale = Pine_TreeSnow.transform.localScale.x + Random.Range(-0.05f, 0.1f);
+                                            float RandomScale = ObjectToSpawn.transform.localScale.x + Random.Range(-0.05f, 0.1f);
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
                                         }
