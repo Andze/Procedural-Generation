@@ -176,9 +176,10 @@ public class EndlessTerrain : MonoBehaviour
 				{
 					for (int y = 0; y < 241; y += 5) 
 					{
-						if (mapData.heightMap [x, y] >= 0.0f && mapData.heightMap [x, y] <= 0.4f)
+						if (mapData.heightMap [x, y] >= 0.0f && mapData.heightMap [x, y] <= 1.4f)
 						{
-							GameObject Tree = Instantiate(myTree, new Vector3 (meshObject.transform.localPosition.x + x, mapData.heightMap [x, y] , meshObject.transform.localPosition.z + y), Quaternion.identity);
+                            //heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier        
+                            GameObject Tree = Instantiate(myTree, new Vector3 (meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap [x, y]) * 20.0f , meshObject.transform.localPosition.z + y), Quaternion.identity);
 							Tree.transform.SetParent(SpawnedObjects.transform);
 						
 						}
