@@ -173,6 +173,7 @@ public class EndlessTerrain : MonoBehaviour
                                 GameObject Shell = GameObject.Find("Shell");
                                 GameObject Bush = GameObject.Find("Bush");
                                 GameObject Bush_Snow = GameObject.Find("Bush_Snow");
+                                GameObject Dead_Tree = GameObject.Find("Dead_Tree");
                                 GameObject Wall = GameObject.Find("Wall");
 
                                 GameObject ObjectToSpawn = new GameObject();
@@ -192,6 +193,7 @@ public class EndlessTerrain : MonoBehaviour
                                     {
                                         if (mapData.heightMap[x, y] >= 0.0f && mapData.heightMap[x, y] <= 0.1f)
                                         {
+                                            //seaweed
                                             GameObject Tree = Instantiate(SeaWeed, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3, 3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0,360));
                                             float RandomScale = SeaWeed.transform.localScale.x + Random.Range(-0.1f, 0.1f);
@@ -200,12 +202,14 @@ public class EndlessTerrain : MonoBehaviour
                                         }
                                         if (mapData.heightMap[x, y] >= 0.1f && mapData.heightMap[x, y] <= 0.35f)
                                         {
+                                            //shells
                                             GameObject Tree = Instantiate(Shell, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3,3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(0, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
                                             Tree.transform.SetParent(SpawnedObjects.transform);
                                         }
                                         if (mapData.heightMap[x, y] >= 0.25f && mapData.heightMap[x, y] <= 0.35f)
                                         {
+                                            //Palm Trees
                                             GameObject Tree = Instantiate(Palm_Tree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             float RandomScale = Palm_Tree.transform.localScale.x + Random.Range(-0.05f, 0.1f);
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
@@ -215,9 +219,11 @@ public class EndlessTerrain : MonoBehaviour
                                         }
                                         if (mapData.heightMap[x, y] >= 0.35f && mapData.heightMap[x, y] <= 0.5f)
                                         {
-                                            int randomSeed = Random.Range(0,2);
+                                            //beach and Bush
+                                            int randomSeed = Random.Range(0,3);
                                             if (randomSeed == 0) ObjectToSpawn = Beach_Tree;
                                             if(randomSeed == 1) ObjectToSpawn = Bush;
+                                            if (randomSeed == 2) ObjectToSpawn = Grass;
                                             //grass 1
                                             GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
@@ -227,9 +233,13 @@ public class EndlessTerrain : MonoBehaviour
                                         }
                                         if (mapData.heightMap[x, y] >= 0.5f && mapData.heightMap[x, y] <= 0.6f)
                                         {
-                                            //Grass 2        
-                                            GameObject Tree = Instantiate(Pine_Tree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0))); Tree.transform.Rotate(0, 0, Random.Range(0, 360));
-                                            float RandomScale = Pine_Tree.transform.localScale.x + Random.Range(-0.05f, 0.1f);
+                                            //Grass 2    Pine and Rock    
+                                            int randomSeed = Random.Range(0, 2);
+                                            if (randomSeed == 0) ObjectToSpawn = Pine_Tree;
+                                            if (randomSeed == 1) ObjectToSpawn = Dead_Tree;
+
+                                            GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0))); Tree.transform.Rotate(0, 0, Random.Range(0, 360));
+                                            float RandomScale = ObjectToSpawn.transform.localScale.x + Random.Range(-0.05f, 0.1f);
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
                                             Tree.transform.SetParent(SpawnedObjects.transform);                                    
                                         }

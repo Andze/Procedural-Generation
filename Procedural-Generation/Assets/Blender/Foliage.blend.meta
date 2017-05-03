@@ -17,6 +17,7 @@ ModelImporter:
     100018: Bush_Snow
     100020: SeaWeed
     100022: Shell
+    100024: Dead_Tree
     400000: //RootNode
     400002: Grass
     400004: Pine_Tree
@@ -29,6 +30,7 @@ ModelImporter:
     400018: Bush_Snow
     400020: SeaWeed
     400022: Shell
+    400024: Dead_Tree
     2300000: //RootNode
     2300002: Grass
     2300004: Pine_Tree
@@ -41,6 +43,7 @@ ModelImporter:
     2300018: Bush_Snow
     2300020: SeaWeed
     2300022: Shell
+    2300024: Dead_Tree
     3300000: //RootNode
     3300002: Grass
     3300004: Pine_Tree
@@ -53,6 +56,7 @@ ModelImporter:
     3300018: Bush_Snow
     3300020: SeaWeed
     3300022: Shell
+    3300024: Dead_Tree
     4300000: Pine_Tree
     4300002: Grass
     4300004: Cylinder
@@ -64,6 +68,7 @@ ModelImporter:
     4300016: Bush_Snow
     4300018: SeaWeed
     4300020: Shell
+    4300022: Dead_Tree
     7400000: Default Take
     9500000: //RootNode
   materials:
