@@ -8,17 +8,32 @@ ModelImporter:
     100000: //RootNode
     100002: Grass
     100004: Pine_Tree
+    100006: Beach_Tree
+    100008: Cylinder
+    100010: Pine_TreeSnow
     400000: //RootNode
     400002: Grass
     400004: Pine_Tree
+    400006: Beach_Tree
+    400008: Cylinder
+    400010: Pine_TreeSnow
     2300000: //RootNode
     2300002: Grass
     2300004: Pine_Tree
+    2300006: Beach_Tree
+    2300008: Cylinder
+    2300010: Pine_TreeSnow
     3300000: //RootNode
     3300002: Grass
     3300004: Pine_Tree
+    3300006: Beach_Tree
+    3300008: Cylinder
+    3300010: Pine_TreeSnow
     4300000: Pine_Tree
     4300002: Grass
+    4300004: Cylinder
+    4300006: Beach_Tree
+    4300008: Pine_TreeSnow
     7400000: Default Take
     9500000: //RootNode
   materials:

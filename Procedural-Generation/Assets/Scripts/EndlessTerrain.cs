@@ -173,15 +173,16 @@ public class EndlessTerrain : MonoBehaviour
                                 SpawnedObjects.transform.position = meshObject.transform.position;
 
                                 //loop over everything
-                                for (int x = 0; x < 241; x += 5)
+                                for (int x = 0; x < 241; x += Random.Range(2,9))
                                 {
-                                    for (int y = 0; y < 241; y += 5)
+                                    for (int y = 0; y < 241; y += Random.Range(5, 9))
                                     {
                                         if (mapData.heightMap[x, y] >= 0.5f && mapData.heightMap[x, y] <= 0.65f)
                                         {
                                             //heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier        
                                             GameObject Tree = Instantiate(myTree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
-                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                          
+                                            Tree.transform.SetParent(SpawnedObjects.transform);                                    
 
                                         }
                                     }
