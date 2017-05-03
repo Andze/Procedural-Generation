@@ -163,7 +163,17 @@ public class EndlessTerrain : MonoBehaviour
                             if (hasLoaded == false)
                             {
                                 //Objects to spawn
-                                GameObject myTree = GameObject.Find("Pine_Tree");
+                                GameObject Pine_Tree = GameObject.Find("Pine_Tree");
+                                GameObject Grass = GameObject.Find("Grass");
+                                GameObject Palm_Tree = GameObject.Find("Palm_Tree");
+                                GameObject Pine_TreeSnow = GameObject.Find("Pine_TreeSnow");
+                                GameObject Rock = GameObject.Find("Rock");
+                                GameObject Beach_Tree = GameObject.Find("Beach_Tree");
+                                GameObject SeaWeed = GameObject.Find("SeaWeed");
+                                GameObject Shell = GameObject.Find("Shell");
+                                GameObject Bush = GameObject.Find("Bush");
+                                GameObject Bush_Snow = GameObject.Find("Bush_Snow");
+                                GameObject Wall = GameObject.Find("Wall");
 
                                 //holder for all objects
                                 GameObject SpawnedObjects = new GameObject(); SpawnedObjects.name = "SpawnedObjects";
@@ -173,20 +183,73 @@ public class EndlessTerrain : MonoBehaviour
                                 SpawnedObjects.transform.position = meshObject.transform.position;
 
                                 //loop over everything
-                                for (int x = 0; x < 241; x += Random.Range(2,9))
+                                for (int x = 0; x < 241; x += Random.Range(4,8))
                                 {
                                     for (int y = 0; y < 241; y += Random.Range(5, 9))
                                     {
-                                        if (mapData.heightMap[x, y] >= 0.5f && mapData.heightMap[x, y] <= 0.65f)
+                                        if (mapData.heightMap[x, y] >= 0.0f && mapData.heightMap[x, y] <= 0.1f)
                                         {
-                                            //heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier        
-                                            GameObject Tree = Instantiate(myTree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
-                                          
+                                            GameObject Tree = Instantiate(SeaWeed, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3, 3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.1f && mapData.heightMap[x, y] <= 0.35f)
+                                        {
+                                            GameObject Tree = Instantiate(Shell, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3,3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(0, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.25f && mapData.heightMap[x, y] <= 0.35f)
+                                        {
+                                            GameObject Tree = Instantiate(Palm_Tree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                            
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.35f && mapData.heightMap[x, y] <= 0.5f)
+                                        {
+                                            //grass 1
+                                            GameObject Tree = Instantiate(Beach_Tree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.5f && mapData.heightMap[x, y] <= 0.6f)
+                                        {
+                                            //Grass 2        
+                                            GameObject Tree = Instantiate(Pine_Tree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));                                         
                                             Tree.transform.SetParent(SpawnedObjects.transform);                                    
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.65f && mapData.heightMap[x, y] <= 0.85f)
+                                        {
+                                            //Rock       
+                                            GameObject Tree = Instantiate(Bush, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+                                        if (mapData.heightMap[x, y] >= 0.85f && mapData.heightMap[x, y] <= 0.95f)
+                                        {
+                                            //Rock 2       
+                                            GameObject Tree = Instantiate(Bush, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+                                        if (mapData.heightMap[x, y] > 0.95f)
+                                        {
+                                            //Snow      
+                                            GameObject Tree = Instantiate(Pine_TreeSnow, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
 
+                                    }
+                                }
+
+                                for (int x = 0; x < 241; x ++ )
+                                {
+                                    for (int y = 0; y < 241; y ++ )
+                                    {
+                                        if (mapData.heightMap[x, y] >= 0.625f && mapData.heightMap[x, y] <= 0.64f)
+                                        {
+
+                                            GameObject Tree = Instantiate(Wall, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);                                           
                                         }
                                     }
                                 }
+
                                 SpawnedObjects.transform.Rotate(new Vector3(180.0f, 0, 0));
                                 SpawnedObjects.transform.localPosition = new Vector3(SpawnedObjects.transform.localPosition.x - 120.5f, 0, SpawnedObjects.transform.localPosition.z + 120.5f);
                                 hasLoaded = true;
