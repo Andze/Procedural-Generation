@@ -54,14 +54,14 @@ public class MapGenerator : MonoBehaviour
         {
 			MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD);
 			display.DrawMesh( meshdata,TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
-			GameObject Trees = new GameObject();
-			Trees.name = "Spawned-Trees";
-			for (int i = 0; i < treeIndex.Count; i++) 
-			{
-				GameObject tree = Instantiate(Tree,meshdata.verticies[treeIndex[i]],Quaternion.identity);
-				tree.transform.SetParent (Trees.transform);
-			}
-			treeIndex = new List<int>(0);
+			//GameObject Trees = new GameObject();
+			//Trees.name = "Spawned-Trees";
+			//for (int i = 0; i < treeIndex.Count; i++) 
+			//{
+			//	GameObject tree = Instantiate(Tree,meshdata.verticies[treeIndex[i]],Quaternion.identity);
+			//	tree.transform.SetParent (Trees.transform);
+			//}
+			//treeIndex = new List<int>(0);
 		}
     }
 

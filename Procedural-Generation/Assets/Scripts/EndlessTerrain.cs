@@ -68,7 +68,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial));
+                    terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, false));
                 }
 
             }
@@ -89,9 +89,10 @@ public class EndlessTerrain : MonoBehaviour
 
         MapData mapData;
         bool mapDataReceived;
+        bool hasLoaded;
         int previousLODIndex = -1;
 
-        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material)
+        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, bool Loaded)
         {
             this.detailLevels = detailLevels;
 
@@ -106,7 +107,7 @@ public class EndlessTerrain : MonoBehaviour
             meshObject.transform.position = positionV3;
             meshObject.transform.parent = parent;
             SetVisible(false);
-
+            hasLoaded = Loaded;
             lodMeshes = new LODMesh[detailLevels.Length];
             for (int i = 0; i < detailLevels.Length; i++)
             {
@@ -142,6 +143,7 @@ public class EndlessTerrain : MonoBehaviour
                     {
                         if (viewerDstFromNearestEdge > detailLevels[i].visibleDstThreshold)
                         {
+
                             lodIndex = i + 1;
                         }
                         else
@@ -157,6 +159,38 @@ public class EndlessTerrain : MonoBehaviour
                         {
                             previousLODIndex = lodIndex;
                             meshFilter.mesh = lodMesh.mesh;
+
+                            if (hasLoaded == false)
+                            {
+                                //Objects to spawn
+                                GameObject myTree = GameObject.Find("Pine_Tree");
+
+                                //holder for all objects
+                                GameObject SpawnedObjects = new GameObject(); SpawnedObjects.name = "SpawnedObjects";
+
+                                //set it to mesh chunk
+                                SpawnedObjects.transform.SetParent(meshObject.transform);
+                                SpawnedObjects.transform.position = meshObject.transform.position;
+
+                                //loop over everything
+                                for (int x = 0; x < 241; x += 5)
+                                {
+                                    for (int y = 0; y < 241; y += 5)
+                                    {
+                                        if (mapData.heightMap[x, y] >= 0.5f && mapData.heightMap[x, y] <= 0.65f)
+                                        {
+                                            //heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier        
+                                            GameObject Tree = Instantiate(myTree, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+
+                                        }
+                                    }
+                                }
+                                SpawnedObjects.transform.Rotate(new Vector3(180.0f, 0, 0));
+                                SpawnedObjects.transform.localPosition = new Vector3(SpawnedObjects.transform.localPosition.x - 120.5f, 0, SpawnedObjects.transform.localPosition.z + 120.5f);
+                                hasLoaded = true;
+                            }
+
                         }
                         else if (!lodMesh.hasRequestedMesh)
                         {
@@ -165,29 +199,7 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     terrainChunksVisibleLastUpdate.Add(this);
                 }
-				GameObject myTree = GameObject.Find("Tree");
-
-				GameObject SpawnedObjects = new GameObject(); SpawnedObjects.name = "SpawnedObjects";
-
-				SpawnedObjects.transform.SetParent (meshObject.transform);
-				SpawnedObjects.transform.position = meshObject.transform.position;
-
-				for (int x = 0; x < 241; x += 5) 
-				{
-					for (int y = 0; y < 241; y += 5) 
-					{
-						if (mapData.heightMap [x, y] >= 0.0f && mapData.heightMap [x, y] <= 1.4f)
-						{
-                            //heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier        
-                            GameObject Tree = Instantiate(myTree, new Vector3 (meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap [x, y]) * 20.0f , meshObject.transform.localPosition.z + y), Quaternion.identity);
-							Tree.transform.SetParent(SpawnedObjects.transform);
-						
-						}
-					}
-				}
-				SpawnedObjects.transform.Rotate (new Vector3 (180.0f, 0, 0));
-				SpawnedObjects.transform.localPosition = new Vector3 (SpawnedObjects.transform.localPosition.x - 120.5f,0, SpawnedObjects.transform.localPosition.z + 120.5f);
-
+				
                 SetVisible(visible);
             }
         }
