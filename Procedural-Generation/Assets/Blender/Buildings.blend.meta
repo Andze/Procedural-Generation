@@ -16,6 +16,8 @@ ModelImporter:
     100016: Cube
     100018: Church
     100020: Dock
+    100022: House_3
+    100024: House_4
     400000: //RootNode
     400002: Sphere
     400004: Wall
@@ -27,6 +29,8 @@ ModelImporter:
     400016: Cube
     400018: Church
     400020: Dock
+    400022: House_3
+    400024: House_4
     2300000: //RootNode
     2300002: Sphere
     2300004: Wall
@@ -38,6 +42,8 @@ ModelImporter:
     2300016: Cube
     2300018: Church
     2300020: Dock
+    2300022: House_3
+    2300024: House_4
     3300000: //RootNode
     3300002: Sphere
     3300004: Wall
@@ -49,6 +55,8 @@ ModelImporter:
     3300016: Cube
     3300018: Church
     3300020: Dock
+    3300022: House_3
+    3300024: House_4
     4300000: Wall
     4300002: Sphere
     4300004: Keep
@@ -59,6 +67,8 @@ ModelImporter:
     4300014: Cube
     4300016: Church
     4300018: Dock
+    4300020: House_4
+    4300022: House_3
   materials:
     importMaterials: 1
     materialName: 0

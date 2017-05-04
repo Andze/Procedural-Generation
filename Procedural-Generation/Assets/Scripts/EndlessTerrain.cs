@@ -179,6 +179,8 @@ public class EndlessTerrain : MonoBehaviour
                                 GameObject FarmHouse = GameObject.Find("FarmHouse1");
                                 GameObject House_1 = GameObject.Find("House_1");
                                 GameObject House_2 = GameObject.Find("House_2");
+                                GameObject House_3 = GameObject.Find("House_3");
+                                GameObject House_4 = GameObject.Find("House_4");
                                 GameObject Keep_Snow = GameObject.Find("Keep_Snow");
                                 GameObject Cactus = GameObject.Find("Cactus");
                                 GameObject Church = GameObject.Find("Church");
@@ -276,8 +278,10 @@ public class EndlessTerrain : MonoBehaviour
                                         {
                                             //Rock   
                                             float randomSeed = Random.Range(0, 101);
-                                            if (randomSeed > 0 && randomSeed < 100) ObjectToSpawn = Church;
-                                        
+                                            if (randomSeed > 80 && randomSeed < 100) ObjectToSpawn = Church;
+                                            if (randomSeed > 0 && randomSeed < 40) ObjectToSpawn = House_3;
+                                            if (randomSeed > 40 && randomSeed < 80) ObjectToSpawn = House_4;
+
 
                                             GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
