@@ -181,6 +181,9 @@ public class EndlessTerrain : MonoBehaviour
                                 GameObject House_2 = GameObject.Find("House_2");
                                 GameObject Keep_Snow = GameObject.Find("Keep_Snow");
                                 GameObject Cactus = GameObject.Find("Cactus");
+                                GameObject Church = GameObject.Find("Church");
+                                GameObject Dock = GameObject.Find("Dock");
+                                GameObject Empty = new GameObject();
 
                                 GameObject ObjectToSpawn = new GameObject();
                                 ObjectToSpawn.transform.SetParent(meshObject.transform);
@@ -206,9 +209,22 @@ public class EndlessTerrain : MonoBehaviour
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
                                         }
+                                        if (mapData.heightMap[x, y] >= 0.2f && mapData.heightMap[x, y] <= 0.25f) {
+
+                                            //DOCKS DOCKS BABY
+                                            float randomSeed = Random.Range(0, 101);
+                                            if (randomSeed > 0 && randomSeed < 90) ObjectToSpawn = Empty;
+                                            if (randomSeed > 90 && randomSeed < 100) ObjectToSpawn = Dock;
+
+                                            GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3, 3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                              float RandomScale = ObjectToSpawn.transform.localScale.x + Random.Range(0.1f, 0.25f);
+                                            Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
+                                            Tree.transform.Rotate(0, 0, Random.Range(0, 360));
+                                            Tree.transform.SetParent(SpawnedObjects.transform);
+                                        }
+
                                         if (mapData.heightMap[x, y] >= 0.1f && mapData.heightMap[x, y] <= 0.35f)
-                                        {
-                                            //shells
+                                        {                                          
                                             GameObject Tree = Instantiate(Shell, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3,3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(0, 0, 0)));
                                             Tree.transform.Rotate(0, Random.Range(0, 360), 0);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
@@ -233,7 +249,7 @@ public class EndlessTerrain : MonoBehaviour
                                             if (randomSeed > 0 && randomSeed < 30) ObjectToSpawn = Beach_Tree;
                                             if(randomSeed > 30 && randomSeed < 60) ObjectToSpawn = Bush;
                                             if (randomSeed > 60 && randomSeed < 90) ObjectToSpawn = Grass;
-                                            if (randomSeed > 98) { ObjectToSpawn = FarmHouse; }
+                                            if (randomSeed > 90) { ObjectToSpawn = FarmHouse; }
                                             //grass 1
                                             GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
@@ -258,10 +274,14 @@ public class EndlessTerrain : MonoBehaviour
                                         // CITY GENERATION--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                         if (mapData.heightMap[x, y] >= 0.65f && mapData.heightMap[x, y] <= 0.85f)
                                         {
-                                            //Rock       
-                                            GameObject Tree = Instantiate(Bush, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
+                                            //Rock   
+                                            float randomSeed = Random.Range(0, 101);
+                                            if (randomSeed > 0 && randomSeed < 100) ObjectToSpawn = Church;
+                                        
+
+                                            GameObject Tree = Instantiate(ObjectToSpawn, new Vector3(meshObject.transform.localPosition.x + x, -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(90, 0, 0)));
                                             Tree.transform.Rotate(0, 0, Random.Range(0, 360));
-                                            float RandomScale = Bush.transform.localScale.x + Random.Range(-0.05f, 0.1f);
+                                            float RandomScale = ObjectToSpawn.transform.localScale.x + Random.Range(-0.05f, 0.1f);
                                             Tree.transform.localScale = new Vector3(RandomScale, RandomScale, RandomScale);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
                                         }
