@@ -307,8 +307,8 @@ public class EndlessTerrain : MonoBehaviour
                                         {
                                             //Rock 2     
                                             float randomSeed = Random.Range(0, 101);
-                                            if (randomSeed > 0 && randomSeed < 65) ObjectToSpawn = Keep_Snow;
-                                            if (randomSeed > 60 && randomSeed < 80) ObjectToSpawn = Pine_TreeSnow;
+                                            if (randomSeed > 0 && randomSeed < 40) ObjectToSpawn = Keep_Snow;
+                                            if (randomSeed > 40 && randomSeed < 80) ObjectToSpawn = Pine_TreeSnow;
                                             if (randomSeed > 80 && randomSeed < 100) ObjectToSpawn = Bush_Snow;
 
                                             //Snow      
