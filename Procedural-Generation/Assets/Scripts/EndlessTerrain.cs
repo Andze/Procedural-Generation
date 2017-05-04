@@ -213,7 +213,7 @@ public class EndlessTerrain : MonoBehaviour
                                         }
                                         if (mapData.heightMap[x, y] >= 0.2f && mapData.heightMap[x, y] <= 0.25f) {
 
-                                            //DOCKS DOCKS BABY
+                                            //Dock spawning
                                             float randomSeed = Random.Range(0, 101);
                                             if (randomSeed > 0 && randomSeed < 90) ObjectToSpawn = Empty;
                                             if (randomSeed > 90 && randomSeed < 100) ObjectToSpawn = Dock;
@@ -226,7 +226,8 @@ public class EndlessTerrain : MonoBehaviour
                                         }
 
                                         if (mapData.heightMap[x, y] >= 0.1f && mapData.heightMap[x, y] <= 0.35f)
-                                        {                                          
+                                        {               
+                                            //shell orientation diffrent to the rest                           
                                             GameObject Tree = Instantiate(Shell, new Vector3(meshObject.transform.localPosition.x + x + Random.Range(-3,3), -mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[x, y]) * 20.0f, meshObject.transform.localPosition.z + y), (Quaternion.Euler(0, 0, 0)));
                                             Tree.transform.Rotate(0, Random.Range(0, 360), 0);
                                             Tree.transform.SetParent(SpawnedObjects.transform);
@@ -278,6 +279,7 @@ public class EndlessTerrain : MonoBehaviour
                                         {
                                             //Rock   
                                             float randomSeed = Random.Range(0, 101);
+
                                             if (randomSeed > 80 && randomSeed < 100) ObjectToSpawn = Church;
                                             if (randomSeed > 0 && randomSeed < 40) ObjectToSpawn = House_3;
                                             if (randomSeed > 40 && randomSeed < 80) ObjectToSpawn = House_4;
